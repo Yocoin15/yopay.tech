@@ -199,7 +199,7 @@ You can use any online wallet, service or exchange of your choice.
 
 
 
-Withdraw API
+### Withdraw API
 
 GET Retrieve balance
 https://api.yopay.tech/yoc/wallet?token={token}
@@ -207,7 +207,9 @@ https://api.yopay.tech/yoc/wallet?token={token}
 HEADERS
 Content-Type: application/json
 
+ 
 RETRIEVE
+```json
 {
     "success": true,
     "data": {
@@ -224,20 +226,24 @@ RETRIEVE
         }
     }
 }
-POST Withdraw
+```
+
+### POST Withdraw
 https://api.yopay.tech/yoc/withdraw?token={token}
 
-HEADERS
+### HEADERS
 Content-Type: application/json
 
-BODY
+### BODY
+```json
 {
  "address": "0xf75574f061cd1f96F2fc66231641D6A40b93d2f2",
  "amount": "0.02"
 }
+```
 
-RETRIEVE
-
+### RETRIEVE
+```json
 {
     "success": true,
     "data": {
@@ -248,6 +254,7 @@ RETRIEVE
         "id": "5b23c61148542af110c026e7"
     }
 }
+```
 Before usage:
 Open settings and populate password and upload you json file
 toggle api access on
