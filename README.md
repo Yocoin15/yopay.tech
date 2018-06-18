@@ -196,3 +196,58 @@ The API returns a JSON string containing the information about invoice that same
 You will need payout addresses for all crypto currencies you want to accept. Only you will have access to your payout wallets.
 You can use any online wallet, service or exchange of your choice.
 
+
+
+
+Withdraw API
+
+GET Retrieve balance
+https://api.yopay.tech/yoc/wallet?token={token}
+
+HEADERS
+Content-Type: application/json
+
+RETRIEVE
+{
+    "success": true,
+    "data": {
+        "balance": "16220000000000000",
+        "wallet": {
+            "user": "5afe757f0470a2cd199f4d00",
+            "cold_wallet": "0x2b30D2903C131E6F45A717db883ED489113E27E4",
+            "api_access": true,
+            "max_amount": null,
+            "max_confirmations": 3,
+            "min_amount": null,
+            "is_active": true,
+            "blockchain": "yoc"
+        }
+    }
+}
+POST Withdraw
+https://api.yopay.tech/yoc/withdraw?token={token}
+
+HEADERS
+Content-Type: application/json
+
+BODY
+{
+ "address": "0xf75574f061cd1f96F2fc66231641D6A40b93d2f2",
+ "amount": "0.02"
+}
+
+RETRIEVE
+
+{
+    "success": true,
+    "data": {
+        "address": "0xf75574f061cd1f96F2fc66231641D6A40b93d2f2",
+        "blockchain": "yoc",
+        "amount": "0.02",
+        "created": "2018-06-15T13:45:49.912Z",
+        "id": "5b23c61148542af110c026e7"
+    }
+}
+Before usage:
+Open settings and populate password and upload you json file
+toggle api access on
