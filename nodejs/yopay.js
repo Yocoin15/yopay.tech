@@ -40,6 +40,11 @@ module.exports = {
     getCurrencies(callback) {
         const url = API_URL + 'currencies/?token=' + API_SECRET;
         makeGetRequest(url, callback);
+    },
+
+    getRates(callback, fiat) {
+        const url = API_URL + 'rates/' + fiat + '/?token=' + API_SECRET;
+        makeGetRequest(url, callback);
     }
 
 };

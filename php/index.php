@@ -17,6 +17,11 @@ $curencies = $curencies['data'];
 echo 'Your available currencies is: <pre>';
 print_r($curencies);
 
+$rates = $yo->getRates(['usd', 'eur']);
+
+echo 'Exchange rates is: <pre>';
+print_r($rates);
+
 if (!in_array('yoc', $curencies)) die('I can`t take payment in YOC');
 
 $address = $yo->getAddress(123);

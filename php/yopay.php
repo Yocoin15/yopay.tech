@@ -45,6 +45,20 @@ class YopayApi
     }
 
     /*
+     * Get currencies exchange rates;
+     *
+     * @param string|array $fiat is fiat currency for get rates
+     *
+     * @return array $result of rates
+     */
+    public function getRates($fiat)
+    {
+        $url = $this->apiUrl . 'rates/' . $fiat . '/?token=' . $this->apiSecret;
+
+        return $this->makeGetRequest($url);
+    }
+
+    /*
      * Get Info and status for exists invoice by it id
      *
      * @param string $invoiceId Invoice id got from getAddress request

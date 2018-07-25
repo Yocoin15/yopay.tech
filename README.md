@@ -1,88 +1,75 @@
-<h3>Yopay API</h3>
+# Yopay API
 This API allows to accept <b>YoCoin</b> payments. More details can be found on our website: https://yopay.tech/
 
-<h3>API Keys</h3>
+#### API Keys
 In order to use the system you need an API key. Getting a key is free and easy, sign up here:
 https://yopay.tech
 
-<h3>Multiple Currencies</h3>
+#### Multiple Currencies
 Once registered, you can manage the currencies you want to integrate in the Membership area / Currencies. 
 Please enable the currencies there before using this API.
 
-<h3>Get Currencies</h3>
-<h4>Get a list of enabled currencies with this GET request:</h4>
-<table border="0" cellspacing="0" cellpadding="10" >
-        <tbody><tr>
-            <td>GET</td>
-            <td>https://api.yopay.tech/currencies/?token={token}</td>
-        </tr>
-    </tbody>
-</table>
-<h4>Parameters:</h4>
-<table>
-  <tbody>
-  <tr>
-      <td>token</td>
-      <td>API Secret Key</td>
-    </tr>
-</tbody></table>
-
-<h3>Create payment request</h3>
-<h4>Use GET query to create payment request:</h4>
-<table border="0" cellspacing="0" cellpadding="10" >
-        <tbody><tr>
-            <td>GET</td>
-            <td>https://api.yopay.tech/{crypto}/payment/{callback_url}/?token={token}</td>
-        </tr>
-    </tbody>
-</table>
-<h4>Parameters:</h4>
-<table>
-  <tbody>
-  <tr>
-      <td>crypto</td>
-      <td>Crypto currency to accept (yoc)</td>
-    </tr>
-  <tr>
-    <td>token</td>
-    <td>API Secret Key</td>
-  </tr>
-</tbody></table>
-<h4>Optional parameters:</h4>
-<table>
-  <tr>
-        <td>callback_url</td>
-        <td>Your server callback url (urlencoded) to get information about payment</td>
-    </tr>
-</table>
+## API Resources
 
 
-<h4>Example request URL:</h4>
-<a href="https://api.yopay.tech/yoc/payment/http%3A%2F%2Fputsreq.com%2FUv8u7ofxXDWVoaVawDWd/?token=YOURSECRET">
-https://api.yopay.tech/yoc/payment/http%3A%2F%2Fputsreq.com%2FUv8u7ofxXDWVoaVawDWd/?token=YOURSECRET</a><br>
-<h5>Or without callback_url:</h5>
-<a href="https://api.yopay.tech/yoc/payment/?token=YOURSECRET">
-https://api.yopay.tech/yoc/payment/?token=YOURSECRET</a><br>
+### GET /currencies/?token={token}
+Get a list of enabled currencies.
+
+**Example:** https://api.yopay.tech/currencies/?token=WKt2skCsqns6666666666CJv0m4DUkX
+
+**Headers:** Content-Type: application/json
+
+**Parameters:**
+ - token - API Secret Key
+
+**Response body:**
+```json
+{
+   "success": true,
+   "data": [
+       "yoc",
+       "eth"
+   ]
+}
+```
+
+
+### GET /{crypto}/payment/?token={token}
+### GET /{crypto}/payment/{callback_url}/?token={token}
+
+Create payment request
+
+**Examples:**
+ - Without callback: 
+  https://api.yopay.tech/yoc/payment/?token=WKt2skCsqns6666666666CJv0m4DUkX
+ - With callback: https://api.yopay.tech/yoc/payment/http%3A%2F%2Fexample.com%2Fcb.php/?token=WKt2skCsqns6666666666CJv0m4DUkX
+
+**Headers:** Content-Type: application/json
+
+**Parameters:**
+ - token - API Secret Key
+ - crypto - Crypto currency to accept
+
+**Optional parameters:**
+ - callback_url - Your server callback url (urlencoded) to get information about payment
+
+**Response body:**
  
-<h4>Response:</h4>
-<p>The API always responds with a JSON string. [data] collection contains the important values:
-[address] is the payment address to show to the customer
-[invoice] is our inner payment identifier, keep it in a safe place and never disclose to your clients.</p>
-
-<h4>Response example:</h4>
-<p>
+*The API always responds with a JSON string. [data] collection contains the important values:*
+ - *[address] is the payment address to show to the customer*
+ - *[invoice] is our inner payment identifier, keep it in a safe place and never disclose to your clients.*
 
 ```json
 {
     "success": true,
     "data": {
-        "invoice": "d1ddf6e3767030b08032cf2eae403600",
-        "address": "0x2073eb3be1a41908e0353427da7f16412a01ae71"
+        "invoice": "d1ddf6e3767030b06666666eae403600",
+        "address": "0xf75574f061cd66666666666666666666666666f2"
     }
 }
 ```
 
-<h4>PHP example:</h4> More examples: <a href="nodejs">Node.js</a>
+**PHP example:**
 
 ```php
 require('yopay.php');
@@ -100,32 +87,31 @@ $data = $address['data'];
 $invoiceId = $data['invoice']; //save it where you need
 
 die('Please send your coins to address: ' . $data['address']);
-
 ```
 
-<h3>Callback</h3>
-A callback is sent every time a new block is mined. It stops when transaction get maxConfirmations confirmations. See code sample below.
-<h4>Callback request data example:</h4>
+**Callback example:**
+
+*A callback is sent every time a new block is mined. It stops when transaction get maxConfirmations confirmations. See code sample below.*
 
 ```json
 {
 	"transaction_amount": 2000000000000000000,
-	"transaction_hash": "0xfd4609159efea3804335e4a24a6cff5aab31e6f81ae36bb07869cc8b5536827c",
-	"block_hash": "0xd5800a894ac462cd3338f24068a5b527996b0427d47b28b04a58fed4b9e15e8f",
+	"transaction_hash": "0xfd4609159efea3804335e4a2666666666666666666666bb07869cc8b5536827c",
+	"block_hash": "0xd5800a894ac462cd3338f24068a6666666666666666666664a58fed4b9e15e8f",
 	"block_number": 140,
-	"address": "0x5FB2C28b53847cA67601Ef4167254FE907abB501",
-	"callback": "http://work.loc/t.php",
+	"address": "0xf75574f061cd66666666666666666666666666f2",
+	"callback": "http://example.com/cb.php",
 	"blockchain": "yoc",
 	"status": "complete",
 	"confirmations": 13,
-	"invoice": "5af73d4367cb2423704deba1",
+	"invoice": "d1ddf6e3767030b06666666eae403600",
 	"maxConfirmations": 4
 }
 ```
-<h4>PHP example:</h4> More examples: <a href="nodejs">Node.js</a>
+
+**PHP callback cb.php example:**
 
 ```php
-
 $orderId = $_GET['orderId'];
 $data = file_get_contents('php://input');
 if ($data) {
@@ -148,75 +134,103 @@ if ($data) {
 }
 ```
 
-<h3>Get Invoice Info and Status</h3>
 
-<h4>Use GET query to obtain information about invoice which already stop sent callback requests:</h4>
-<table border="0" cellspacing="0" cellpadding="10" >
-        <tbody><tr>
-            <td>GET</td>
-            <td><a href="https://api.yopay.tech/invoice/{invoice}/?token={token}">https://api.yopay.tech/invoice/{invoice}/?token={token}</a></td>
-        </tr>
-    </tbody>
-</table>
-<h4>Parameters:</h4>
-<table>
-  <tbody>
-  <tr>
-      <td>invoice</td>
-      <td>Invoice ID from Create payment request</td>
-    </tr>
-  <tr>
-    <td>token</td>
-    <td>API Secret Key</td>
-  </tr>
-</tbody></table>
+### GET /invoice/{invoice}/?token={token}
 
-<h4>Response:</h4>
-The API returns a JSON string containing the information about invoice that same as data sent to callback url.
+Get Invoice Info and Status. Obtain information about invoice which already stop sent callback requests
 
-<h4>Response example:</h4>
+**Example:** https://api.yopay.tech/invoice/d1ddf6e3767030b06666666eae403600/?token=WKt2skCsqns6666666666CJv0m4DUkX 
+
+**Headers:** Content-Type: application/json
+
+**Parameters:**
+ - token - API Secret Key
+ - invoice - Invoice ID from Create payment request
+ 
+**Response body:**
+
+*The API returns a JSON string containing the information about invoice that same as data sent to callback url.*
 
 ```json
 {
     "transaction_amount": 2000000000000000000,
-    "transaction_hash": "0xfd4609159efea3804335e4a24a6cff5aab31e6f81ae36bb07869cc8b5536827c",
-    "block_hash": "0xd5800a894ac462cd3338f24068a5b527996b0427d47b28b04a58fed4b9e15e8f",
+    "transaction_hash": "0xfd4609159efea3804335e4a2666666666666666666666bb07869cc8b5536827c",
+    "block_hash": "0xd5800a894ac462cd3338f24068a6666666666666666666664a58fed4b9e15e8f",
     "block_number": 140,
-    "address": "0x5FB2C28b53847cA67601Ef4167254FE907abB501",
-    "callback": "http://your_domain.com/callback.php?orderId=123",
+    "address": "0xf75574f061cd66666666666666666666666666f2",
+    "callback": "http://example.com/cb.php",
     "blockchain": "yoc",
     "status": "complete",
     "confirmations": 13,
-    "invoice": "5af73d4367cb2423704deba1",
+    "invoice": "d1ddf6e3767030b06666666eae403600",
     "maxConfirmations": 4
 }
 ```
 
-### What to use as a payout address?
+
+### GET /rates/{fiat}/?token={token} 
+
+Get Currencies exchange rates. Obtain information about currencies exchange rates against fiat from markets.
+
+**Example:** https://api.yopay.tech/rates/usd/?token=WKt2skCsqns6666666666CJv0m4DUkX
+
+**Headers:** Content-Type: application/json
+
+**Parameters:**
+ - token - API Secret Key
+ - fiat - Comma separated fiat currencies in which you obtain rates
+
+**Response body:**
+
+*The API returns a JSON string containing the information about selected currencies exchange rates.*
+
+```json
+{
+    "success": true,
+    "data": {
+        "USD": {
+            "YOC": {
+                "coinmarketcap": 0.0203020243,
+                "mid": 0.0203020243
+            }
+        },
+        "EUR": {
+            "YOC": {
+                "coinmarketcap": 1.4806298998,
+                "mid": 1.4806298998
+            }
+        }
+    }
+}
+```
+
+#### What to use as a payout address?
+
 You will need payout addresses for all crypto currencies you want to accept. Only you will have access to your payout wallets.
 You can use any online wallet, service or exchange of your choice.
 
 
+### GET /{crypto}/wallet/?token={token}
 
+Retrieve wallet balance
 
-### Withdraw API
+**Example:** https://api.yopay.tech/yoc/wallet/?token=WKt2skCsqns6666666666CJv0m4DUkX
 
-GET Retrieve balance
-https://api.yopay.tech/yoc/wallet?token={token}
+**Headers:** Content-Type: application/json
 
-HEADERS
-Content-Type: application/json
-
+**Parameters:**
+ - token - API Secret Key
+ - crypto - Crypto currency to accept
  
-RETRIEVE
+**Response body:**
 ```json
 {
     "success": true,
     "data": {
         "balance": "16220000000000000",
         "wallet": {
-            "user": "5afe757f0470a2cd199f4d00",
-            "cold_wallet": "0x2b30D2903C131E6F45A717db883ED489113E27E4",
+            "user": "5afe757f6666666666664d00",
+            "cold_wallet": "0x2b30D2903C1366666666666666666666113E27E4",
             "api_access": true,
             "max_amount": null,
             "max_confirmations": 3,
@@ -228,33 +242,80 @@ RETRIEVE
 }
 ```
 
-### POST Withdraw
-https://api.yopay.tech/yoc/withdraw?token={token}
 
-### HEADERS
-Content-Type: application/json
+### POST /yoc/withdraw/?token={token}
+### POST /yoc/withdraw/{callback_url}/?token={token}
 
-### BODY
+Request withdrawal to cold wallet (You configure it in your cabinet)
+
+**Examples:** 
+ - Without callback: https://api.yopay.tech/yoc/withdraw/?token=WKt2skCsqns6666666666CJv0m4DUkX
+ - With callback: https://api.yopay.tech/yoc/withdraw/http%3A%2F%2Fexample.com%2Fcb.php/?token=WKt2skCsqns6666666666CJv0m4DUkX
+
+**Headers:** Content-Type: application/json
+
+**Parameters:**
+ - token - API Secret Key
+- callback_url - Your server callback url (urlencoded) to get information about withdrawal
+ 
+
+**Request body:**
 ```json
 {
- "address": "0xf75574f061cd1f96F2fc66231641D6A40b93d2f2",
+ "address": "0xf75574f061cd66666666666666666666666666f2",
  "amount": "0.02"
 }
 ```
 
-### RETRIEVE
+**Response body:**
+```json
+{
+    "success": true,
+    "data": "Transaction sent",
+    "id": "5b5666666666666666662ed21"
+}
+```
+
+**Callback example:**
+
 ```json
 {
     "success": true,
     "data": {
-        "address": "0xf75574f061cd1f96F2fc66231641D6A40b93d2f2",
+        "address": "0xf75574f061cd66666666666666666666666666f2",
         "blockchain": "yoc",
         "amount": "0.02",
         "created": "2018-06-15T13:45:49.912Z",
-        "id": "5b23c61148542af110c026e7"
+        "id": "5b23c61166666666666666e7"
     }
 }
 ```
+
+
+### GET /withdraw/{withdraw}/?token={token}
+
+Retrieve withdrawal details
+
+**Example:** https://api.yopay.tech/withdraw/5b13c41166666fff666666e7/?token=WKt2skCsqns6666666666CJv0m4DUkX
+
+**Headers:** Content-Type: application/json
+
+**Response body:**
+
+```json
+{
+    "success": true,
+    "data": {
+        "address": "0xf75574f061cd66666666666666666666666666f2",
+        "blockchain": "yoc",
+        "amount": "0.02",
+        "created": "2018-06-15T13:45:49.912Z",
+        "id": "5b23c61166666666666666e7"
+    }
+}
+```
+
+
 Before usage:
 Open settings and populate password and upload you json file
 toggle api access on
