@@ -282,11 +282,16 @@ Request withdrawal to cold wallet (You configure it in your cabinet)
 {
     "success": true,
     "data": {
+      "withdrawal": {
+        "txid": "0x8e81cc436666666666666666643801d8f98d4d093c1e5381c031eb55048f92ed",
         "address": "0xf75574f061cd66666666666666666666666666f2",
         "blockchain": "yoc",
-        "amount": "0.02",
-        "created": "2018-06-15T13:45:49.912Z",
-        "id": "5b23c61166666666666666e7"
+        "amount": "0.33",
+        "callback": "http:/example.com/cb.php",
+        "status": "complete",
+        "created": "2018-07-23T12:35:35.394Z",
+        "id": "5b55cbb7566666666689fcdb"
+      }
     }
 }
 ```
@@ -306,13 +311,16 @@ Retrieve withdrawal details
 {
     "success": true,
     "data": {
+        "txid": "0x8e81cc436666666666666666643801d8f98d4d093c1e5381c031eb55048f92ed",
         "address": "0xf75574f061cd66666666666666666666666666f2",
         "blockchain": "yoc",
-        "amount": "0.02",
-        "created": "2018-06-15T13:45:49.912Z",
-        "id": "5b23c61166666666666666e7"
+        "amount": "0.33",
+        "callback": "http:/example.com/cb.php",
+        "status": "complete",
+        "created": "2018-07-23T12:35:35.394Z",
+        "id": "5b55cbb7566666666689fcdb"
+      }
     }
-}
 ```
 
 
