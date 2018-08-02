@@ -24,7 +24,10 @@ print_r($rates);
 
 if (!in_array('yoc', $curencies)) die('I can`t take payment in YOC');
 
-$address = $yo->getAddress(123);
+$orderId = 123;
+$callback = 'http://example.com/yopay/callback.php?orderId=' . $orderId;
+
+$address = $yo->getAddress($callback);
 
 if ($address['success'] == false) die('Error: ' . $address['error']);
 $data = $address['data'];

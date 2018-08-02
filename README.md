@@ -1,4 +1,4 @@
-# Yopay API
+    # Yopay API
 This API allows to accept <b>YoCoin</b> payments. More details can be found on our website: https://yopay.tech/
 
 #### API Keys
@@ -79,8 +79,10 @@ define('API_URL', 'https://api.yopay.tech/');
 
 $yo = new YopayApi(API_SECRET, API_URL);
 
-$orderId = 12345;
-$address = $yo->getAddress($orderId);
+$orderId = 123;
+$callback = 'http://example.com/yopay/callback.php?orderId=' . $orderId;
+
+$address = $yo->getAddress($callback);
 
 if ($address['success'] == false) die('Error: ' . $address['error']);
 $data = $address['data'];
@@ -280,19 +282,16 @@ Request withdrawal to cold wallet (You configure it in your cabinet)
 
 ```json
 {
-    "success": true,
-    "data": {
-      "withdrawal": {
-        "txid": "0x8e81cc436666666666666666643801d8f98d4d093c1e5381c031eb55048f92ed",
-        "address": "0xf75574f061cd66666666666666666666666666f2",
-        "blockchain": "yoc",
-        "amount": "0.33",
-        "callback": "http:/example.com/cb.php",
-        "status": "complete",
-        "created": "2018-07-23T12:35:35.394Z",
-        "id": "5b55cbb7566666666689fcdb"
-      }
-    }
+  "withdrawal": {
+    "txid": "0x8e81cc436666666666666666643801d8f98d4d093c1e5381c031eb55048f92ed",
+    "address": "0xf75574f061cd66666666666666666666666666f2",
+    "blockchain": "yoc",
+    "amount": "0.33",
+    "callback": "http:/example.com/cb.php",
+    "status": "complete",
+    "created": "2018-07-23T12:35:35.394Z",
+    "id": "5b55cbb7566666666689fcdb"
+  }
 }
 ```
 

@@ -16,14 +16,14 @@ class YopayApi
     /*
      * Create new invoice and generate new payment address for it
      *
-     * @param string $orderId is client inner id for create callback url
+     * @param string $callback callback url
      * @param string $token is currency in which need to create invoice
      *
      * @return array $result
      */
-    public function getAddress($orderId, $token = 'YOC')
+    public function getAddress($callback, $token = 'YOC')
     {
-        $callbackUrl = urlencode('http://YOUR_DOMAIN.com/yopay/callback.php?orderId=' . $orderId);
+        $callbackUrl = urlencode($callback);
 
         $token = strtolower($token);
 
